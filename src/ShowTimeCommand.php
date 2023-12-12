@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Override;
-
 use function printf;
 use function str_pad;
 
@@ -16,7 +14,7 @@ final readonly class ShowTimeCommand implements Command
     ) {
     }
 
-    #[Override] public function execute(): void
+    public function execute(): void
     {
         printf(
             '%1$s:00' . PHP_EOL,

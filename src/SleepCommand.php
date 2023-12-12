@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use Override;
+use function printf;
+use function str_pad;
 
 final readonly class SleepCommand implements Command
 {
@@ -14,7 +15,7 @@ final readonly class SleepCommand implements Command
     ) {
     }
 
-    #[Override] public function execute(): void
+    public function execute(): void
     {
         printf(
             '%1$s:00 <%2$s>' . PHP_EOL,
