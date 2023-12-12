@@ -6,7 +6,7 @@ namespace App;
 
 use Override;
 
-final class AwakeCommand implements Command
+final readonly class AwakeCommand implements Command
 {
     public function __construct(
         private int $hour,
