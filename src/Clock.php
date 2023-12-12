@@ -28,8 +28,8 @@ final readonly class Clock
     {
         $this->clockDisplay->show(
             command: match ($hour) {
-                $this->awakeAt => new AwakeCommand(hour: $hour),
-                $this->sleepAt => new SleepCommand(hour: $hour),
+                $this->awakeAt => new AwakeCommand(hour: $hour, message: 'awake'),
+                $this->sleepAt => new SleepCommand(hour: $hour, message: 'sleep'),
                 default => new ShowTimeCommand(hour: $hour)
             }
         );
