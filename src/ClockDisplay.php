@@ -6,7 +6,7 @@ namespace App;
 
 final class ClockDisplay
 {
-    public function show(Command $command): void
+    public function update(Command $command): void
     {
         $command->execute();
     }

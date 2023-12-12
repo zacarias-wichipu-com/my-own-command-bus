@@ -26,7 +26,7 @@ final readonly class Clock
 
     private function updateClockDisplay(int $hour): void
     {
-        $this->clockDisplay->show(
+        $this->clockDisplay->update(
             command: match ($hour) {
                 $this->awakeAt => new AwakeCommand(hour: $hour, message: new SpanishDisplayMessage()),
                 $this->sleepAt => new SleepCommand(hour: $hour, message: new SpanishDisplayMessage()),
