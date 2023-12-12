@@ -20,14 +20,18 @@ final readonly class Clock
         $hours = range(start: 0, end: 23);
         array_walk(
             array: $hours,
-            callback: fn(int $hour) => $this->sendCommandToClockDisplay(hour: $hour)
+            callback: fn(int $hour) => $this->updateClockDisplay(hour: $hour)
         );
     }
 
-    private function sendCommandToClockDisplay(int $hour): void
+    private function updateClockDisplay(int $hour): void
     {
         $this->clockDisplay->show(
-            command: new ShowTimeCommand($hour)
+            command: match ($hour) {
+                $this->awakeAt => new AwakeCommand(hour: $hour),
+                $this->sleepAt => new SleepCommand(hour: $hour),
+                default => new ShowTimeCommand(hour: $hour)
+            }
         );
     }
 }

@@ -6,10 +6,7 @@ namespace App;
 
 use Override;
 
-use function printf;
-use function str_pad;
-
-final readonly class ShowTimeCommand implements Command
+final class SleepCommand implements Command
 {
     public function __construct(
         private int $hour
@@ -19,7 +16,7 @@ final readonly class ShowTimeCommand implements Command
     #[Override] public function execute(): void
     {
         printf(
-            '%1$s:00' . PHP_EOL,
+            '%1$s:00 (sleep)' . PHP_EOL,
             str_pad(
                 string: (string)$this->hour,
                 length: 2,
