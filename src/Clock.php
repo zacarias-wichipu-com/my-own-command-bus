@@ -17,10 +17,17 @@ final readonly class Clock
 
     public function __invoke(): void
     {
-        foreach (range(0, 23) as $hour) {
-            $this->clockDisplay->show(
-                command: new ShowTimeCommand($hour)
-            );
-        }
+        $hours = range(start: 0, end: 23);
+        array_walk(
+            array: $hours,
+            callback: fn(int $hour) => $this->sendCommandToClockDisplay(hour: $hour)
+        );
+    }
+
+    private function sendCommandToClockDisplay(int $hour): void
+    {
+        $this->clockDisplay->show(
+            command: new ShowTimeCommand($hour)
+        );
     }
 }
