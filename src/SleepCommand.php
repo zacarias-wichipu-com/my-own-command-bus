@@ -11,7 +11,7 @@ final readonly class SleepCommand implements Command
 {
     public function __construct(
         private int $hour,
-        private string $message
+        private DisplayMessage $message
     ) {
     }
 
@@ -25,7 +25,7 @@ final readonly class SleepCommand implements Command
                 pad_string: '0',
                 pad_type: STR_PAD_LEFT
             ),
-            $this->message
+            $this->message->goodNight()
         );
     }
 }
