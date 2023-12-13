@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Command\AwakeCommand;
-use App\Command\ShowTimeCommand;
-use App\Command\SleepCommand;
+use App\Command\DisplayAwakeMessageCommand;
+use App\Command\DisplaySleepMessageCommand;
+use App\Command\DisplayTimeCommand;
 
 final readonly class Clock
 {
@@ -31,9 +31,9 @@ final readonly class Clock
     private function dispatchCommand(int $hour): void
     {
         $command = match ($hour) {
-            $this->awakeAt => new AwakeCommand(hour: $hour),
-            $this->sleepAt => new SleepCommand(hour: $hour),
-            default => new ShowTimeCommand(hour: $hour)
+            $this->awakeAt => new DisplayAwakeMessageCommand(hour: $hour),
+            $this->sleepAt => new DisplaySleepMessageCommand(hour: $hour),
+            default => new DisplayTimeCommand(hour: $hour)
         };
         ($this->commandBus)($command);
     }

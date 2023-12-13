@@ -6,17 +6,19 @@ namespace App\Handler;
 
 use App\ClockDisplay;
 use App\Command\Command;
-use App\Command\ShowTimeCommand;
+use App\Command\DisplayAwakeMessageCommand;
+use App\DisplayMessage;
 use InvalidArgumentException;
 
 use function str_pad;
 
-final readonly class ShowTimeHandler implements Handler
+final readonly class DisplayAwakeMessageCommandCommandHandler implements CommandHandler
 {
     private ClockDisplay $clockDisplay;
 
-    public function __construct()
-    {
+    public function __construct(
+        private DisplayMessage $message
+    ) {
         $this->clockDisplay = new ClockDisplay();
     }
 
@@ -30,7 +32,7 @@ final readonly class ShowTimeHandler implements Handler
 
     private function ensureCommand(Command $command): void
     {
-        if (!$command instanceof ShowTimeCommand) {
+        if (!$command instanceof DisplayAwakeMessageCommand) {
             throw new InvalidArgumentException(sprintf('Invalid command <$1%s>', $command::class));
         }
     }
@@ -38,13 +40,14 @@ final readonly class ShowTimeHandler implements Handler
     private function buildDisplayMessage(string $hour): string
     {
         return sprintf(
-            '%1$s:00',
+            '%1$s:00 <%2$s>',
             str_pad(
                 string: $hour,
                 length: 2,
                 pad_string: '0',
                 pad_type: STR_PAD_LEFT
-            )
+            ),
+            $this->message->goodMorning()
         );
     }
 }

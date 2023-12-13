@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-final readonly class ShowTimeCommand implements Command
+final readonly class DisplayTimeCommand implements Command
 {
     public function __construct(
         private int $hour

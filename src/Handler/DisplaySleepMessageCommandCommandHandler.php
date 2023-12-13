@@ -6,13 +6,13 @@ namespace App\Handler;
 
 use App\ClockDisplay;
 use App\Command\Command;
-use App\Command\SleepCommand;
+use App\Command\DisplaySleepMessageCommand;
 use App\DisplayMessage;
 use InvalidArgumentException;
 
 use function str_pad;
 
-final readonly class SleepHandler implements Handler
+final readonly class DisplaySleepMessageCommandCommandHandler implements CommandHandler
 {
     private ClockDisplay $clockDisplay;
 
@@ -32,7 +32,7 @@ final readonly class SleepHandler implements Handler
 
     private function ensureCommand(Command $command): void
     {
-        if (!$command instanceof SleepCommand) {
+        if (!$command instanceof DisplaySleepMessageCommand) {
             throw new InvalidArgumentException(sprintf('Invalid command <$1%s>', $command::class));
         }
     }

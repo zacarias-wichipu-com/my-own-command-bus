@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Command\AwakeCommand;
 use App\Command\Command;
-use App\Command\SleepCommand;
-use App\Handler\AwakeHandler;
-use App\Handler\Handler;
-use App\Handler\ShowTimeHandler;
-use App\Handler\SleepHandler;
+use App\Command\DisplayAwakeMessageCommand;
+use App\Command\DisplaySleepMessageCommand;
+use App\Handler\CommandHandler;
+use App\Handler\DisplayAwakeMessageCommandCommandHandler;
+use App\Handler\DisplaySleepMessageCommandCommandHandler;
+use App\Handler\DisplayTimeCommandCommandHandler;
 
 final class HandlerDriver
 {
-    public function __invoke(Command $command): Handler
+    public function __invoke(Command $command): CommandHandler
     {
         return match ($command::class) {
-            AwakeCommand::class => new AwakeHandler(new SpanishDisplayMessage()),
-            SleepCommand::class => new SleepHandler(new SpanishDisplayMessage()),
-            default => new ShowTimeHandler(),
+            DisplayAwakeMessageCommand::class => new DisplayAwakeMessageCommandCommandHandler(
+                new SpanishDisplayMessage()
+            ),
+            DisplaySleepMessageCommand::class => new DisplaySleepMessageCommandCommandHandler(
+                new SpanishDisplayMessage()
+            ),
+            default => new DisplayTimeCommandCommandHandler(),
         };
     }
 }
