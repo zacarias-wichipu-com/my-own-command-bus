@@ -9,7 +9,7 @@ use App\Application\Command;
 final readonly class CommandBus
 {
     public function __construct(
-        private HandlerDriver $commandHandlerDriver
+        private CommandHandlerDriver $commandHandlerDriver
     ) {
     }
 

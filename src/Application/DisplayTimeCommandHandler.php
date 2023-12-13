@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 use function str_pad;
 
-final readonly class DisplayTimeCommandCommandHandler implements CommandHandler
+final readonly class DisplayTimeCommandHandler implements CommandHandler
 {
     private ClockDisplay $clockDisplay;
 

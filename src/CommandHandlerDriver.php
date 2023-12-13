@@ -7,7 +7,7 @@ namespace App;
 use App\Application\Command;
 use App\Application\CommandHandler;
 
-final class HandlerDriver
+final class CommandHandlerDriver
 {
     /**
      * @var array<string, CommandHandler>

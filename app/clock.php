@@ -3,28 +3,28 @@
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use App\Application\DisplayAwakeMessageCommand;
-use App\Application\DisplayAwakeMessageCommandCommandHandler;
+use App\Application\DisplayAwakeMessageCommandHandler;
 use App\Application\DisplaySleepMessageCommand;
-use App\Application\DisplaySleepMessageCommandCommandHandler;
+use App\Application\DisplaySleepMessageCommandHandler;
 use App\Application\DisplayTimeCommand;
-use App\Application\DisplayTimeCommandCommandHandler;
+use App\Application\DisplayTimeCommandHandler;
 use App\Clock;
 use App\CommandBus;
-use App\HandlerDriver;
+use App\CommandHandlerDriver;
 use App\SpanishDisplayMessage;
 
-$commandHandlerDriver = new HandlerDriver();
+$commandHandlerDriver = new CommandHandlerDriver();
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplayTimeCommand::class,
-    commandHandler: new DisplayTimeCommandCommandHandler()
+    commandHandler: new DisplayTimeCommandHandler()
 );
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplayAwakeMessageCommand::class,
-    commandHandler: new DisplayAwakeMessageCommandCommandHandler(new SpanishDisplayMessage())
+    commandHandler: new DisplayAwakeMessageCommandHandler(new SpanishDisplayMessage())
 );
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplaySleepMessageCommand::class,
-    commandHandler: new DisplaySleepMessageCommandCommandHandler(new SpanishDisplayMessage())
+    commandHandler: new DisplaySleepMessageCommandHandler(new SpanishDisplayMessage())
 );
 $commandBus = new CommandBus($commandHandlerDriver);
 $clock = new Clock(

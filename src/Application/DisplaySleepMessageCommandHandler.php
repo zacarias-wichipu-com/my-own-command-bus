@@ -10,7 +10,7 @@ use InvalidArgumentException;
 
 use function str_pad;
 
-final readonly class DisplaySleepMessageCommandCommandHandler implements CommandHandler
+final readonly class DisplaySleepMessageCommandHandler implements CommandHandler
 {
     private ClockDisplay $clockDisplay;
 
