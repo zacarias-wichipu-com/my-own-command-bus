@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Command\DisplayAwakeMessageCommand;
-use App\Command\DisplaySleepMessageCommand;
-use App\Command\DisplayTimeCommand;
+use App\Application\DisplayAwakeMessageCommand;
+use App\Application\DisplaySleepMessageCommand;
+use App\Application\DisplayTimeCommand;
 
 final readonly class Clock
 {

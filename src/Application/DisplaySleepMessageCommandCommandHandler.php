@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Handler;
+namespace App\Application;
 
 use App\ClockDisplay;
-use App\Command\Command;
-use App\Command\DisplaySleepMessageCommand;
 use App\DisplayMessage;
 use InvalidArgumentException;
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Application;
 
-final readonly class DisplayAwakeMessageCommand implements Command
+final readonly class DisplaySleepMessageCommand implements Command
 {
     public function __construct(
-        private int $hour,
+        private int $hour
     ) {
     }
 

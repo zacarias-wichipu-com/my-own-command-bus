@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Command\Command;
+use App\Application\Command;
 
 final readonly class CommandBus
 {
