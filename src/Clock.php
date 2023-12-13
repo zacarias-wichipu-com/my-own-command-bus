@@ -10,13 +10,13 @@ use App\Command\SleepCommand;
 
 final readonly class Clock
 {
-    private ClockDisplay $clockDisplay;
+    private CommandBus $commandBus;
 
     public function __construct(
         private int $awakeAt,
         private int $sleepAt,
     ) {
-        $this->clockDisplay = new ClockDisplay();
+        $this->commandBus = new CommandBus();
     }
 
     public function __invoke(): void
@@ -24,18 +24,17 @@ final readonly class Clock
         $hours = range(start: 0, end: 23);
         array_walk(
             array: $hours,
-            callback: fn(int $hour) => $this->updateClockDisplay(hour: $hour)
+            callback: fn(int $hour) => $this->dispatchCommand(hour: $hour)
         );
     }
 
-    private function updateClockDisplay(int $hour): void
+    private function dispatchCommand(int $hour): void
     {
-        $this->clockDisplay->update(
-            command: match ($hour) {
-                $this->awakeAt => new AwakeCommand(hour: $hour),
-                $this->sleepAt => new SleepCommand(hour: $hour),
-                default => new ShowTimeCommand(hour: $hour)
-            }
-        );
+        $command = match ($hour) {
+            $this->awakeAt => new AwakeCommand(hour: $hour),
+            $this->sleepAt => new SleepCommand(hour: $hour),
+            default => new ShowTimeCommand(hour: $hour)
+        };
+        ($this->commandBus)($command);
     }
 }
