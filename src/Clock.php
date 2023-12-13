@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Command\AwakeCommand;
+use App\Command\ShowTimeCommand;
+use App\Command\SleepCommand;
+
 final readonly class Clock
 {
     private ClockDisplay $clockDisplay;

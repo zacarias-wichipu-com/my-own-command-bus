@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Command;
+
+use App\Command;
+use App\DisplayMessage;
 
 use function printf;
 use function str_pad;
 
-final readonly class SleepCommand implements Command
+final readonly class AwakeCommand implements Command
 {
     public function __construct(
         private int $hour,
@@ -25,7 +28,7 @@ final readonly class SleepCommand implements Command
                 pad_string: '0',
                 pad_type: STR_PAD_LEFT
             ),
-            $this->message->goodNight()
+            $this->message->goodMorning()
         );
     }
 }

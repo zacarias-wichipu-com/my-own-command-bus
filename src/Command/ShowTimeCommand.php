@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Command;
+
+use App\Command;
 
 use function printf;
 use function str_pad;
