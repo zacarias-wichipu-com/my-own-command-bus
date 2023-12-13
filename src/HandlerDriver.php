@@ -6,24 +6,21 @@ namespace App;
 
 use App\Application\Command;
 use App\Application\CommandHandler;
-use App\Application\DisplayAwakeMessageCommand;
-use App\Application\DisplayAwakeMessageCommandCommandHandler;
-use App\Application\DisplaySleepMessageCommand;
-use App\Application\DisplaySleepMessageCommandCommandHandler;
-use App\Application\DisplayTimeCommandCommandHandler;
 
 final class HandlerDriver
 {
-    public function __invoke(Command $command): CommandHandler
+    /**
+     * @var array<string, CommandHandler>
+     */
+    private array $commands = [];
+
+    public function registerCommands(string $commandFqn, CommandHandler $commandHandler): void
     {
-        return match ($command::class) {
-            DisplayAwakeMessageCommand::class => new DisplayAwakeMessageCommandCommandHandler(
-                new SpanishDisplayMessage()
-            ),
-            DisplaySleepMessageCommand::class => new DisplaySleepMessageCommandCommandHandler(
-                new SpanishDisplayMessage()
-            ),
-            default => new DisplayTimeCommandCommandHandler(),
-        };
+        $this->commands[$commandFqn] = $commandHandler;
+    }
+
+    public function getCommandHandlerFor(Command $command): CommandHandler
+    {
+        return $this->commands[$command::class];
     }
 }

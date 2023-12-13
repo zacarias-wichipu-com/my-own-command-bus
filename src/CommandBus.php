@@ -8,16 +8,14 @@ use App\Application\Command;
 
 final readonly class CommandBus
 {
-    private HandlerDriver $resolver;
-
-    public function __construct()
-    {
-        $this->resolver = new HandlerDriver();
+    public function __construct(
+        private HandlerDriver $commandHandlerDriver
+    ) {
     }
 
     public function __invoke(Command $command): void
     {
-        $handler = ($this->resolver)(command: $command);
+        $handler = $this->commandHandlerDriver->getCommandHandlerFor(command: $command);
         ($handler)(command: $command);
     }
 }

@@ -10,13 +10,11 @@ use App\Application\DisplayTimeCommand;
 
 final readonly class Clock
 {
-    private CommandBus $commandBus;
-
     public function __construct(
+        private CommandBus $commandBus,
         private int $awakeAt,
         private int $sleepAt,
     ) {
-        $this->commandBus = new CommandBus();
     }
 
     public function __invoke(): void
