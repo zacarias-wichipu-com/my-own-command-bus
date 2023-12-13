@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Command;
 
 interface Command
 {
-    public function execute(): void;
+
 }
