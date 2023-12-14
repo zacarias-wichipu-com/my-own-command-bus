@@ -8,6 +8,10 @@ use App\Application\DisplaySleepMessageCommand;
 use App\Application\DisplaySleepMessageCommandHandler;
 use App\Application\DisplayTimeCommand;
 use App\Application\DisplayTimeCommandHandler;
+use App\Application\PlayAlarmCommand;
+use App\Application\PlayAlarmCommandHandler;
+use App\Application\PlayBeepCommand;
+use App\Application\PlayBeepCommandHandler;
 use App\Clock;
 use App\CommandBus;
 use App\CommandHandlerDriver;
@@ -26,10 +30,18 @@ $commandHandlerDriver->registerCommands(
     commandFqn: DisplaySleepMessageCommand::class,
     commandHandler: new DisplaySleepMessageCommandHandler(new SpanishDisplayMessage())
 );
+$commandHandlerDriver->registerCommands(
+    commandFqn: PlayBeepCommand::class,
+    commandHandler: new PlayBeepCommandHandler()
+);
+$commandHandlerDriver->registerCommands(
+    commandFqn: PlayAlarmCommand::class,
+    commandHandler: new PlayAlarmCommandHandler()
+);
 $commandBus = new CommandBus($commandHandlerDriver);
 $clock = new Clock(
     commandBus: $commandBus,
-    awakeAt: 6,
-    sleepAt: 23
+    awakeAt: 7,
+    sleepAt: 22
 );
 ($clock)();

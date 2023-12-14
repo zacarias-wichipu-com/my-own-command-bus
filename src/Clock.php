@@ -7,6 +7,8 @@ namespace App;
 use App\Application\DisplayAwakeMessageCommand;
 use App\Application\DisplaySleepMessageCommand;
 use App\Application\DisplayTimeCommand;
+use App\Application\PlayAlarmCommand;
+use App\Application\PlayBeepCommand;
 
 final readonly class Clock
 {
@@ -28,10 +30,25 @@ final readonly class Clock
 
     private function dispatchCommand(int $hour): void
     {
+        $this->dispatchDisplayCommand($hour);
+        $this->dispatchSpeakerCommand($hour);
+    }
+
+    private function dispatchDisplayCommand(int $hour): void
+    {
         $command = match ($hour) {
             $this->awakeAt => new DisplayAwakeMessageCommand(hour: $hour),
             $this->sleepAt => new DisplaySleepMessageCommand(hour: $hour),
             default => new DisplayTimeCommand(hour: $hour)
+        };
+        ($this->commandBus)($command);
+    }
+
+    private function dispatchSpeakerCommand(int $hour): void
+    {
+        $command = match ($hour) {
+            $this->awakeAt, $this->sleepAt => new PlayAlarmCommand(),
+            default => new PlayBeepCommand()
         };
         ($this->commandBus)($command);
     }
