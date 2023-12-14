@@ -22,7 +22,7 @@ final readonly class DisplayTimeCommandHandler implements CommandHandler
     {
         $this->ensureCommand($command);
         $this->clockDisplay->update(
-            message: $this->buildDisplayMessage((string)$command->hour())
+            message: $this->buildDisplayMessage($command->hour())
         );
     }
 
@@ -33,12 +33,12 @@ final readonly class DisplayTimeCommandHandler implements CommandHandler
         }
     }
 
-    private function buildDisplayMessage(string $hour): string
+    private function buildDisplayMessage(int $hour): string
     {
         return sprintf(
             '%1$s:00',
             str_pad(
-                string: $hour,
+                string: (string)$hour,
                 length: 2,
                 pad_string: '0',
                 pad_type: STR_PAD_LEFT
