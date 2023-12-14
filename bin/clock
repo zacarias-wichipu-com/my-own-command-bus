@@ -5,10 +5,10 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use App\Application\DisplayAwakeMessageCommand;
 use App\Application\DisplayAwakeMessageCommandHandler;
+use App\Application\DisplayEmojiTimeCommandHandler;
 use App\Application\DisplaySleepMessageCommand;
 use App\Application\DisplaySleepMessageCommandHandler;
 use App\Application\DisplayTimeCommand;
-use App\Application\DisplayTimeCommandHandler;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
@@ -21,7 +21,7 @@ use App\EnglishDisplayMessage;
 $commandHandlerDriver = new CommandHandlerDriver();
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplayTimeCommand::class,
-    commandHandler: new DisplayTimeCommandHandler()
+    commandHandler: new DisplayEmojiTimeCommandHandler()
 );
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplayAwakeMessageCommand::class,
