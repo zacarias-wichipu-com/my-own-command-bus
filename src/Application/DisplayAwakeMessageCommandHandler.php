@@ -6,7 +6,6 @@ namespace App\Application;
 
 use App\ClockDisplay;
 use App\DisplayMessage;
-use InvalidArgumentException;
 
 use function str_pad;
 
@@ -20,19 +19,11 @@ final readonly class DisplayAwakeMessageCommandHandler implements CommandHandler
         $this->clockDisplay = new ClockDisplay();
     }
 
-    public function __invoke(Command $command): void
+    public function __invoke(DisplayAwakeMessageCommand $command): void
     {
-        $this->ensureCommand($command);
         $this->clockDisplay->update(
             message: $this->buildDisplayMessage($command->hour())
         );
-    }
-
-    private function ensureCommand(Command $command): void
-    {
-        if (!$command instanceof DisplayAwakeMessageCommand) {
-            throw new InvalidArgumentException(sprintf('Invalid command <$1%s>', $command::class));
-        }
     }
 
     private function buildDisplayMessage(int $hour): string

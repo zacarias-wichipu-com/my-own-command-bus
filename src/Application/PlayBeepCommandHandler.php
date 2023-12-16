@@ -6,7 +6,6 @@ namespace App\Application;
 
 use App\ClockSpeaker;
 use App\SoundBank;
-use InvalidArgumentException;
 
 final readonly class PlayBeepCommandHandler implements CommandHandler
 {
@@ -17,16 +16,8 @@ final readonly class PlayBeepCommandHandler implements CommandHandler
         $this->clockSpeaker = new ClockSpeaker();
     }
 
-    public function __invoke(Command $command): void
+    public function __invoke(PlayBeepCommand $command): void
     {
-        $this->ensureCommand($command);
         $this->clockSpeaker->play(SoundBank::beep->value);
-    }
-
-    private function ensureCommand(Command $command): void
-    {
-        if (!$command instanceof PlayBeepCommand) {
-            throw new InvalidArgumentException(sprintf('Invalid command <$1%s>', $command::class));
-        }
     }
 }
