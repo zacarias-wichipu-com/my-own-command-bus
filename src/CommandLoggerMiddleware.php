@@ -7,6 +7,7 @@ namespace App;
 use App\Application\Command;
 use DateTimeImmutable;
 
+use function dirname;
 use function fclose;
 use function fopen;
 use function fwrite;
