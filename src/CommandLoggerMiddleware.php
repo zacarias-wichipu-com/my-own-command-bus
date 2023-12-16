@@ -7,13 +7,18 @@ namespace App;
 use App\Application\Command;
 use DateTimeImmutable;
 
+use function fclose;
+use function fopen;
+use function fwrite;
+use function sprintf;
+
 final class CommandLoggerMiddleware implements Middleware
 {
     public function __invoke(Command $command, CommandBus $commandBus): void
     {
         $log = fopen(
             filename: dirname(__DIR__) . '/var/clock.log',
-            mode: 'a'
+            mode: 'ab'
         );
         fwrite(
             stream: $log,
