@@ -6,5 +6,4 @@ namespace App\Application;
 
 interface Command
 {
-
 }
