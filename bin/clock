@@ -16,6 +16,7 @@ use App\Application\PlayBeepCommandHandler;
 use App\Clock;
 use App\CommandBus;
 use App\CommandHandlerDriver;
+use App\CommandLoggerMiddleware;
 use App\EnglishDisplayMessage;
 
 $commandHandlerDriver = new CommandHandlerDriver();
@@ -39,7 +40,10 @@ $commandHandlerDriver->registerCommands(
     commandFqn: PlayAlarmCommand::class,
     commandHandler: new PlayAlarmCommandHandler()
 );
-$commandBus = new CommandBus($commandHandlerDriver);
+$commandBus = new CommandBus(
+    commandHandlerDriver: $commandHandlerDriver,
+    middleware: new CommandLoggerMiddleware()
+);
 $clock = new Clock(
     commandBus: $commandBus,
     awakeAt: 7,
