@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Domain\Component;
 
 final readonly class ClockSpeaker
 {

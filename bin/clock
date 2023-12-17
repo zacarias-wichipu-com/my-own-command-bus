@@ -13,7 +13,7 @@ use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
-use App\Clock;
+use App\Domain\Clock;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\CommandHandlerDriver;
 use App\Infrastructure\Internationalisation\EnglishDisplayMessage;

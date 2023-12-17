@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Domain;
 
 use App\Application\DisplayAwakeMessageCommand;
 use App\Application\DisplaySleepMessageCommand;
