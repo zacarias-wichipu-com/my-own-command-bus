@@ -48,7 +48,7 @@ final readonly class Clock
     private function dispatchSpeakerCommand(int $hour): void
     {
         $command = match ($hour) {
-            $this->awakeAt, $this->sleepAt => new PlayAlarmCommand(),
+            $this->awakeAt => new PlayAlarmCommand(),
             default => new PlayBeepCommand()
         };
         ($this->commandBus)($command);
