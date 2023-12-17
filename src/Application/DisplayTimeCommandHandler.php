@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\ClockDisplay;
+use App\Domain\Bus\Command\CommandHandler;
 
 use function str_pad;
 
@@ -19,7 +20,6 @@ final readonly class DisplayTimeCommandHandler implements CommandHandler
 
     public function __invoke(DisplayTimeCommand $command): void
     {
-        $this->ensureCommand($command);
         $this->clockDisplay->update(
             message: $this->buildDisplayMessage($command->hour())
         );

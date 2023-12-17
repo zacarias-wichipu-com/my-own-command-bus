@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Infrastructure\Middleware;
 
-use App\Application\Command;
+use App\Domain\Bus\Command\Command;
+use App\Domain\Bus\Middleware\Middleware;
+use App\Infrastructure\Bus\CommandBus;
 use DateTimeImmutable;
 
 use function dirname;
@@ -18,7 +20,7 @@ final class CommandLoggerMiddleware implements Middleware
     public function __invoke(Command $command, CommandBus $commandBus): void
     {
         $log = fopen(
-            filename: dirname(__DIR__) . '/var/clock.log',
+            filename: dirname(__DIR__) . '/../../var/clock.log',
             mode: 'ab'
         );
         fwrite(

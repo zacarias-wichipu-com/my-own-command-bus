@@ -14,10 +14,10 @@ use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
 use App\Clock;
-use App\CommandBus;
-use App\CommandHandlerDriver;
-use App\CommandLoggerMiddleware;
 use App\EnglishDisplayMessage;
+use App\Infrastructure\Bus\CommandBus;
+use App\Infrastructure\Bus\CommandHandlerDriver;
+use App\Infrastructure\Middleware\CommandLoggerMiddleware;
 
 $commandHandlerDriver = new CommandHandlerDriver();
 $commandHandlerDriver->registerCommands(

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Infrastructure\Bus;
 
-use App\Application\Command;
-use App\Application\CommandHandler;
+use App\Domain\Bus\Command\Command;
+use App\Domain\Bus\Command\CommandHandler;
 
 final class CommandHandlerDriver
 {

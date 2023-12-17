@@ -9,6 +9,7 @@ use App\Application\DisplaySleepMessageCommand;
 use App\Application\DisplayTimeCommand;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayBeepCommand;
+use App\Infrastructure\Bus\CommandBus;
 
 final readonly class Clock
 {
