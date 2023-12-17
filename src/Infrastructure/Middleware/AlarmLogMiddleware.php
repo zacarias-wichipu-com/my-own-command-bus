@@ -16,11 +16,11 @@ use function fopen;
 use function fwrite;
 use function sprintf;
 
-final class AlarmLogMiddleware implements Middleware
+final class AlarmLogMiddleware extends Middleware
 {
     public function __invoke(Command $command, CommandBus $commandBus): void
     {
-        $commandBus->handle($command);
+        $this->handle($command, $commandBus);
         $this->logAlarm($command);
     }
 

@@ -18,6 +18,7 @@ use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\CommandHandlerDriver;
 use App\Infrastructure\Internationalisation\EnglishDisplayMessage;
 use App\Infrastructure\Middleware\AlarmLogMiddleware;
+use App\Infrastructure\Middleware\CommandLoggerMiddleware;
 
 $commandHandlerDriver = new CommandHandlerDriver();
 $commandHandlerDriver->registerCommands(
@@ -42,7 +43,9 @@ $commandHandlerDriver->registerCommands(
 );
 $commandBus = new CommandBus(
     commandHandlerDriver: $commandHandlerDriver,
-    middleware: new AlarmLogMiddleware()
+    middleware: new CommandLoggerMiddleware(
+        nexMiddleware: new AlarmLogMiddleware()
+    )
 );
 $clock = new Clock(
     commandBus: $commandBus,
