@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\ClockDisplay;
-use App\DisplayMessage;
 use App\Domain\Bus\Command\CommandHandler;
+use App\Domain\Internationalisation\DisplayMessage;
 
 use function str_pad;
 

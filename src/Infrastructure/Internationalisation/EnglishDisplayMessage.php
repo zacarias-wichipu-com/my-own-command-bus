@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Infrastructure\Internationalisation;
+
+use App\Domain\Internationalisation\DisplayMessage;
 
 final readonly class EnglishDisplayMessage implements DisplayMessage
 {
