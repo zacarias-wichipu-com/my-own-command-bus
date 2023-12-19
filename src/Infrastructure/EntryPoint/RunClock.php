@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Infrastructure\EntryPoint;
 
 use App\Application\DisplayAwakeMessageCommand;
 use App\Application\DisplaySleepMessageCommand;
@@ -11,7 +11,7 @@ use App\Application\PlayAlarmCommand;
 use App\Application\PlayBeepCommand;
 use App\Infrastructure\Bus\CommandBus;
 
-final readonly class Clock
+final readonly class RunClock
 {
     public function __construct(
         private CommandBus $commandBus,

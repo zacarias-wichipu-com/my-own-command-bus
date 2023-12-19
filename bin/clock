@@ -13,9 +13,9 @@ use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
-use App\Domain\Clock;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\CommandHandlerDriver;
+use App\Infrastructure\EntryPoint\RunClock;
 use App\Infrastructure\Internationalisation\EnglishDisplayMessage;
 use App\Infrastructure\Middleware\AlarmLogMiddleware;
 use App\Infrastructure\Middleware\CommandLoggerMiddleware;
@@ -47,9 +47,9 @@ $commandBus = new CommandBus(
         nexMiddleware: new AlarmLogMiddleware()
     )
 );
-$clock = new Clock(
+$runClock = new RunClock(
     commandBus: $commandBus,
     awakeAt: 7,
     sleepAt: 22
 );
-($clock)();
+($runClock)();
