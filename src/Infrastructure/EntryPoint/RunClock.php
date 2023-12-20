@@ -9,6 +9,8 @@ use App\Application\DisplaySleepMessageCommand;
 use App\Application\DisplayTimeCommand;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayBeepCommand;
+use App\Domain\Clock;
+use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 
 final readonly class RunClock
@@ -22,11 +24,19 @@ final readonly class RunClock
 
     public function __invoke(): void
     {
-        $hours = range(start: 0, end: 23);
-        array_walk(
-            array: $hours,
-            callback: fn(int $hour) => $this->dispatchCommand(hour: $hour)
-        );
+        $clock = new Clock(0, $this->awakeAt, $this->sleepAt);
+        do {
+            $clock->tick();
+            $events = $clock->events();
+            array_walk(
+                array: $events,
+                callback: static fn(DomainEvent $domainEvent) => printf(
+                    'events at %2$d: %1$s' . PHP_EOL,
+                    $domainEvent::class,
+                    $domainEvent->hour()
+                )
+            );
+        } while (true);
     }
 
     private function dispatchCommand(int $hour): void
