@@ -21,6 +21,11 @@ final class Clock
         $this->domainEvents = [];
     }
 
+    public function seconds(): int
+    {
+        return $this->seconds;
+    }
+
     public function tick(): void
     {
         $this->seconds = $this->seconds >= 86400 ? 0 : ++$this->seconds;

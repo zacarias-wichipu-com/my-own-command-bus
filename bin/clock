@@ -28,6 +28,7 @@ use App\Infrastructure\EntryPoint\RunClock;
 use App\Infrastructure\Internationalisation\EnglishDisplayMessage;
 use App\Infrastructure\Middleware\AlarmLogMiddleware;
 use App\Infrastructure\Middleware\CommandLoggerMiddleware;
+use App\Infrastructure\Persistence\InMemorySecondsRepository;
 
 // Configure command bus
 $commandHandlerDriver = new CommandHandlerDriver();
@@ -80,7 +81,10 @@ $eventBus = new DomainEventBus(
 // Run clock
 $commandHandlerDriver->registerCommands(
     commandFqn: TickCommand::class,
-    commandHandler: new TickCommandHandler($eventBus)
+    commandHandler: new TickCommandHandler(
+        bus: $eventBus,
+        secondsRepository: new InMemorySecondsRepository()
+    )
 );
 $runClock = new RunClock(
     bus: $commandBus,
