@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Middleware;
 
+use App\Application\Command;
 use App\Application\PlayAlarmCommand;
-use App\Domain\Bus\Command\Command;
 use App\Domain\Bus\Middleware\Middleware;
 use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;

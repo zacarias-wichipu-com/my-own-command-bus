@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Application;
 
-use App\Domain\Bus\Command\CommandHandler;
 use App\Domain\Component\ClockDisplay;
 
 final readonly class DisplayEmojiTimeCommandHandler implements CommandHandler

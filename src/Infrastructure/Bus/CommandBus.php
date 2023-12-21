@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Bus;
 
-use App\Domain\Bus\Command\Command;
+use App\Application\Command;
 use App\Domain\Bus\Middleware\Middleware;
 
 

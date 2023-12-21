@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Bus\Middleware;
 
-use App\Domain\Bus\Command\Command;
+use App\Application\Command;
 use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\EventBus;
