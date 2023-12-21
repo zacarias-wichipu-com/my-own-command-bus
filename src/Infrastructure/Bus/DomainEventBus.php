@@ -13,41 +13,41 @@ use App\Infrastructure\Middleware\Middleware;
 final readonly class DomainEventBus implements PublisherBus
 {
     public function __construct(
-        private DomainEventHandlerDriver $eventHandlerDriver,
+        private DomainEventHandlerDriver $domainEventHandlerDriver,
         private Middleware $middlewares
     ) {
     }
 
     /**
-     * @param array<string, DomainEvent> $events
+     * @param array<string, DomainEvent> $domainEvents
      */
-    public function __invoke(array $events): void
+    public function __invoke(array $domainEvents): void
     {
         array_walk(
-            array: $events,
-            callback: fn(DomainEvent $event) => $this->publish($event)
+            array: $domainEvents,
+            callback: fn(DomainEvent $domainEvent) => $this->publish($domainEvent)
         );
     }
 
     /**
-     * @param array<string, DomainEvent> $events
+     * @param array<string, DomainEvent> $domainEvents
      */
-    public function publishEvents(array $events): void
+    public function publishEvents(array $domainEvents): void
     {
         array_walk(
-            array: $events,
-            callback: fn(DomainEvent $event) => $this->publish($event)
+            array: $domainEvents,
+            callback: fn(DomainEvent $domainEvent) => $this->publish($domainEvent)
         );
     }
 
-    private function publish(DomainEvent $event): void
+    private function publish(DomainEvent $domainEvent): void
     {
-        ($this->middlewares)($event, $this);
+        ($this->middlewares)($domainEvent, $this);
     }
 
     public function handle(Command|DomainEvent $message): void
     {
-        $handlers = $this->eventHandlerDriver->getDomainEventHandlersFor(domainEvent: $message);
+        $handlers = $this->domainEventHandlerDriver->getDomainEventHandlersFor(domainEvent: $message);
         if (empty($handlers)) {
             return;
         }

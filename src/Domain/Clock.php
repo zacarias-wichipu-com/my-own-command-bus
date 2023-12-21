@@ -11,14 +11,14 @@ use App\Domain\Message\DomainEvent;
 
 final class Clock
 {
-    private array $events;
+    private array $domainEvents;
 
     public function __construct(
         private int $seconds,
         private readonly int $awakeAt,
         private readonly int $sleepAt
     ) {
-        $this->events = [];
+        $this->domainEvents = [];
     }
 
     public function tick(): void
@@ -38,14 +38,14 @@ final class Clock
 
     public function events(): array
     {
-        $events = $this->events;
-        $this->events = [];
-        return $events;
+        $domainEvents = $this->domainEvents;
+        $this->domainEvents = [];
+        return $domainEvents;
     }
 
     private function notify(DomainEvent $domainEvent): void
     {
-        $this->events[] = $domainEvent;
+        $this->domainEvents[] = $domainEvent;
     }
 
     private function second(): int

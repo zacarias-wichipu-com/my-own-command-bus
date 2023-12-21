@@ -7,7 +7,7 @@ namespace App\Domain\Message;
 interface PublisherBus
 {
     /**
-     * @param array<string, DomainEvent> $events
+     * @param array<string, DomainEvent> $domainEvents
      */
-    public function publishEvents(array $events): void;
+    public function publishEvents(array $domainEvents): void;
 }

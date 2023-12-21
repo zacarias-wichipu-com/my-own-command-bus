@@ -56,15 +56,15 @@ $commandBus = new CommandBus(
 // Configure event bus
 $domainEventHandlerDriver = new DomainEventHandlerDriver();
 $domainEventHandlerDriver->registerEvent(
-    eventFqn: DotHourReachedDomainEvent::class,
+    domainEventFqn: DotHourReachedDomainEvent::class,
     domainEventHandler: new ShowDisplayTimeWhenDotHourHasReached()
 );
 $domainEventHandlerDriver->registerEvent(
-    eventFqn: DotHourReachedDomainEvent::class,
+    domainEventFqn: DotHourReachedDomainEvent::class,
     domainEventHandler: new PlayBeepWhenDotHourHasReached()
 );
 $eventBus = new DomainEventBus(
-    eventHandlerDriver: $domainEventHandlerDriver,
+    domainEventHandlerDriver: $domainEventHandlerDriver,
     middlewares: new CommandLoggerMiddleware(
         nextMiddleware: new AlarmLogMiddleware()
     )

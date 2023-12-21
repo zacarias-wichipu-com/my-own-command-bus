@@ -14,13 +14,13 @@ final class DomainEventHandlerDriver
      */
     private array $handlers = [];
 
-    public function registerEvent(string $eventFqn, DomainEventHandler $domainEventHandler): void
+    public function registerEvent(string $domainEventFqn, DomainEventHandler $domainEventHandler): void
     {
-        if (!array_key_exists($eventFqn, $this->handlers)) {
-            $this->handlers[$eventFqn] = [];
+        if (!array_key_exists($domainEventFqn, $this->handlers)) {
+            $this->handlers[$domainEventFqn] = [];
         }
-        $this->handlers[$eventFqn] = [
-            ...$this->handlers[$eventFqn],
+        $this->handlers[$domainEventFqn] = [
+            ...$this->handlers[$domainEventFqn],
             ...[$domainEventHandler]
         ];
     }
