@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Bus;
 
+use App\Application\DomainEventHandler;
 use App\Domain\Event\DomainEvent;
-use App\Domain\Event\DomainEventHandler;
 
-final class EventHandlerDriver
+final class DomainEventHandlerDriver
 {
     /**
      * @var array<string, DomainEventHandler>

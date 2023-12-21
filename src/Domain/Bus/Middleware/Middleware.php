@@ -7,7 +7,7 @@ namespace App\Domain\Bus\Middleware;
 use App\Application\Command;
 use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
-use App\Infrastructure\Bus\EventBus;
+use App\Infrastructure\Bus\DomainEventBus;
 
 use function is_null;
 
@@ -18,9 +18,9 @@ abstract class Middleware
     ) {
     }
 
-    abstract public function __invoke(Command|DomainEvent $command, CommandBus|EventBus $commandBus): void;
+    abstract public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void;
 
-    public function handle(Command|DomainEvent $command, CommandBus|EventBus $commandBus): void
+    public function handle(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
     {
         if (is_null($this->nexMiddleware)) {
             $commandBus->handle($command);
