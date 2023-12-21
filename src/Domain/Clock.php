@@ -24,11 +24,9 @@ final class Clock
     public function tick(): void
     {
         $this->seconds = $this->seconds >= 86400 ? 0 : ++$this->seconds;
-
         if ($this->second() !== 0 || $this->minute() !== 0) {
             return;
         }
-
         $this->notify(new DotHourReachedDomainEvent($this->hour()));
         if ($this->hour() === $this->awakeAt) {
             $this->notify(new AwakeHourReachedDomainEvent($this->hour()));

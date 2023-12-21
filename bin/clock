@@ -13,6 +13,7 @@ use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
+use App\Application\PlayBeepWhenDotHourHasReached;
 use App\Application\ShowDisplayTimeWhenDotHourHasReached;
 use App\Domain\Event\DotHourReachedDomainEvent;
 use App\Infrastructure\Bus\CommandBus;
@@ -57,6 +58,10 @@ $domainEventHandlerDriver = new DomainEventHandlerDriver();
 $domainEventHandlerDriver->registerEvent(
     eventFqn: DotHourReachedDomainEvent::class,
     domainEventHandler: new ShowDisplayTimeWhenDotHourHasReached()
+);
+$domainEventHandlerDriver->registerEvent(
+    eventFqn: DotHourReachedDomainEvent::class,
+    domainEventHandler: new PlayBeepWhenDotHourHasReached()
 );
 $eventBus = new DomainEventBus(
     eventHandlerDriver: $domainEventHandlerDriver,
