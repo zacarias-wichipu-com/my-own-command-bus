@@ -11,10 +11,12 @@ use App\Application\DisplaySleepMessageCommandHandler;
 use App\Application\DisplayTimeCommand;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
+use App\Application\PlayAlarmWhenAwakeHourHasReached;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
 use App\Application\PlayBeepWhenDotHourHasReached;
 use App\Application\ShowDisplayTimeWhenDotHourHasReached;
+use App\Domain\Event\AwakeHourReachedDomainEvent;
 use App\Domain\Event\DotHourReachedDomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\CommandHandlerDriver;
@@ -62,6 +64,10 @@ $domainEventHandlerDriver->registerEvent(
 $domainEventHandlerDriver->registerEvent(
     domainEventFqn: DotHourReachedDomainEvent::class,
     domainEventHandler: new PlayBeepWhenDotHourHasReached()
+);
+$domainEventHandlerDriver->registerEvent(
+    domainEventFqn: AwakeHourReachedDomainEvent::class,
+    domainEventHandler: new PlayAlarmWhenAwakeHourHasReached($commandBus)
 );
 $eventBus = new DomainEventBus(
     domainEventHandlerDriver: $domainEventHandlerDriver,

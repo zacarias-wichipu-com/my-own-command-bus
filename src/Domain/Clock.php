@@ -27,12 +27,12 @@ final class Clock
         if ($this->second() !== 0 || $this->minute() !== 0) {
             return;
         }
-        $this->notify(new DotHourReachedDomainEvent($this->hour()));
+        $this->notify(new DotHourReachedDomainEvent(hour: $this->hour(), awakeTime: $this->awakeAt));
         if ($this->hour() === $this->awakeAt) {
-            $this->notify(new AwakeHourReachedDomainEvent($this->hour()));
+            $this->notify(new AwakeHourReachedDomainEvent(hour: $this->hour()));
         }
         if ($this->hour() === $this->sleepAt) {
-            $this->notify(new SleepHourReachedDomainEvent($this->hour()));
+            $this->notify(new SleepHourReachedDomainEvent(hour: $this->hour()));
         }
     }
 

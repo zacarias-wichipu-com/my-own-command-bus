@@ -20,6 +20,9 @@ final readonly class PlayBeepWhenDotHourHasReached implements DomainEventHandler
 
     public function __invoke(DotHourReachedDomainEvent $domainEvent): void
     {
+        if ($domainEvent->hour() === $domainEvent->awakeTime()) {
+            return;
+        }
         $this->clockSpeaker->play(SoundBank::beep->value);
     }
 }
