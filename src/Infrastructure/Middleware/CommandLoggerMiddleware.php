@@ -6,7 +6,9 @@ namespace App\Infrastructure\Middleware;
 
 use App\Domain\Bus\Command\Command;
 use App\Domain\Bus\Middleware\Middleware;
+use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
+use App\Infrastructure\Bus\EventBus;
 use DateTimeImmutable;
 
 use function dirname;
@@ -17,7 +19,7 @@ use function sprintf;
 
 final class CommandLoggerMiddleware extends Middleware
 {
-    public function __invoke(Command $command, CommandBus $commandBus): void
+    public function __invoke(Command|DomainEvent $command, CommandBus|EventBus $commandBus): void
     {
         $log = fopen(
             filename: dirname(__DIR__) . '/../../var/clock.log',
