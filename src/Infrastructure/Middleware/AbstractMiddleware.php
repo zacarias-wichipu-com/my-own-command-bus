@@ -18,14 +18,14 @@ abstract class AbstractMiddleware implements Middleware
     ) {
     }
 
-    abstract public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void;
+    abstract public function __invoke(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void;
 
-    public function handle(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
+    public function handle(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void
     {
         if (is_null($this->nextMiddleware)) {
-            $commandBus->handle($command);
+            $bus->handle($message);
         } else {
-            ($this->nextMiddleware)($command, $commandBus);
+            ($this->nextMiddleware)($message, $bus);
         }
     }
 }

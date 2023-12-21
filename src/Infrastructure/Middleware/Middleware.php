@@ -11,7 +11,7 @@ use App\Infrastructure\Bus\DomainEventBus;
 
 interface Middleware
 {
-    public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void;
+    public function __invoke(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void;
 
-    public function handle(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void;
+    public function handle(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void;
 }

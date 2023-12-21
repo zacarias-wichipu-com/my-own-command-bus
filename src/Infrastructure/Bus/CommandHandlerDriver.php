@@ -10,7 +10,7 @@ use App\Domain\Message\CommandHandler;
 final class CommandHandlerDriver
 {
     /**
-     * @var array<string, \App\Application\CommandHandler>
+     * @var array<string, CommandHandler>
      */
     private array $commands = [];
 

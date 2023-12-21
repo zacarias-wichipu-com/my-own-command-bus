@@ -18,7 +18,7 @@ use function sprintf;
 
 final class CommandLoggerMiddleware extends AbstractMiddleware
 {
-    public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
+    public function __invoke(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void
     {
         $log = fopen(
             filename: dirname(__DIR__) . '/../../var/clock.log',
@@ -29,16 +29,16 @@ final class CommandLoggerMiddleware extends AbstractMiddleware
             data: sprintf(
                 '%1$s: Executing %2$s' . PHP_EOL,
                 (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-                $command::class
+                $message::class
             )
         );
-        $this->handle($command, $commandBus);
+        $this->handle($message, $bus);
         fwrite(
             stream: $log,
             data: sprintf(
                 '%1$s: %2$s finished' . PHP_EOL,
                 (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-                $command::class
+                $message::class
             )
         );
         fclose($log);

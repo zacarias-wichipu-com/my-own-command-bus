@@ -13,13 +13,18 @@ use App\Application\PlayAlarmCommand;
 use App\Application\PlayAlarmCommandHandler;
 use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
+use App\Application\ShowDisplayTimeWhenDotHourHasReached;
+use App\Domain\Event\DotHourReachedDomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\CommandHandlerDriver;
+use App\Infrastructure\Bus\DomainEventBus;
+use App\Infrastructure\Bus\DomainEventHandlerDriver;
 use App\Infrastructure\EntryPoint\RunClock;
 use App\Infrastructure\Internationalisation\EnglishDisplayMessage;
 use App\Infrastructure\Middleware\AlarmLogMiddleware;
 use App\Infrastructure\Middleware\CommandLoggerMiddleware;
 
+// Configure command bus
 $commandHandlerDriver = new CommandHandlerDriver();
 $commandHandlerDriver->registerCommands(
     commandFqn: DisplayTimeCommand::class,
@@ -43,12 +48,25 @@ $commandHandlerDriver->registerCommands(
 );
 $commandBus = new CommandBus(
     commandHandlerDriver: $commandHandlerDriver,
-    middleware: new CommandLoggerMiddleware(
+    middlewares: new CommandLoggerMiddleware(
         nextMiddleware: new AlarmLogMiddleware()
     )
 );
+// Configure event bus
+$domainEventHandlerDriver = new DomainEventHandlerDriver();
+$domainEventHandlerDriver->registerEvent(
+    eventFqn: DotHourReachedDomainEvent::class,
+    domainEventHandler: new ShowDisplayTimeWhenDotHourHasReached()
+);
+$eventBus = new DomainEventBus(
+    eventHandlerDriver: $domainEventHandlerDriver,
+    middlewares: new CommandLoggerMiddleware(
+        nextMiddleware: new AlarmLogMiddleware()
+    )
+);
+// Run clock
 $runClock = new RunClock(
-    commandBus: $commandBus,
+    bus: $eventBus,
     awakeAt: 7,
     sleepAt: 22
 );

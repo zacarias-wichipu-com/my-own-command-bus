@@ -10,23 +10,23 @@ use App\Domain\Message\DomainEventHandler;
 final class DomainEventHandlerDriver
 {
     /**
-     * @var array<string, \App\Domain\Message\DomainEventHandler>
+     * @var array<string, array<DomainEventHandler>>
      */
-    private array $listeners = [];
+    private array $handlers = [];
 
-    public function registerEvents(string $eventFqn, DomainEventHandler $domainEventHandler): void
+    public function registerEvent(string $eventFqn, DomainEventHandler $domainEventHandler): void
     {
-        if (!array_key_exists($eventFqn, $this->listeners)) {
-            $this->listeners[$eventFqn] = [];
+        if (!array_key_exists($eventFqn, $this->handlers)) {
+            $this->handlers[$eventFqn] = [];
         }
-        $this->listeners[$eventFqn] = [
-            ...$this->listeners[$eventFqn],
+        $this->handlers[$eventFqn] = [
+            ...$this->handlers[$eventFqn],
             ...[$domainEventHandler]
         ];
     }
 
     public function getDomainEventHandlersFor(DomainEvent $domainEvent): array
     {
-        return $this->listeners[$domainEvent::class];
+        return $this->handlers[$domainEvent::class] ?? [];
     }
 }

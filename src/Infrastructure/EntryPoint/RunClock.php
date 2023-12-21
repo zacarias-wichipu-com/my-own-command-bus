@@ -10,13 +10,15 @@ use App\Application\DisplayTimeCommand;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayBeepCommand;
 use App\Domain\Clock;
+use App\Domain\Message\HandlerBus;
 use App\Domain\Message\DomainEvent;
+use App\Domain\Message\PublisherBus;
 use App\Infrastructure\Bus\CommandBus;
 
 final readonly class RunClock
 {
     public function __construct(
-        private CommandBus $commandBus,
+        private PublisherBus $bus,
         private int $awakeAt,
         private int $sleepAt,
     ) {
@@ -27,15 +29,7 @@ final readonly class RunClock
         $clock = new Clock(0, $this->awakeAt, $this->sleepAt);
         do {
             $clock->tick();
-            $events = $clock->events();
-            array_walk(
-                array: $events,
-                callback: static fn(DomainEvent $domainEvent) => printf(
-                    'events at %2$d: %1$s' . PHP_EOL,
-                    $domainEvent::class,
-                    $domainEvent->hour()
-                )
-            );
+            $this->bus->publishEvents($clock->events());
         } while (true);
     }
 
@@ -52,7 +46,7 @@ final readonly class RunClock
             $this->sleepAt => new DisplaySleepMessageCommand(hour: $hour),
             default => new DisplayTimeCommand(hour: $hour)
         };
-        ($this->commandBus)($command);
+        ($this->bus)($command);
     }
 
     private function dispatchSpeakerCommand(int $hour): void
@@ -61,6 +55,6 @@ final readonly class RunClock
             $this->awakeAt => new PlayAlarmCommand(),
             default => new PlayBeepCommand()
         };
-        ($this->commandBus)($command);
+        ($this->bus)($command);
     }
 }

@@ -19,13 +19,13 @@ use function sprintf;
 
 final class AlarmLogMiddleware extends AbstractMiddleware
 {
-    public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
+    public function __invoke(Command|DomainEvent $message, CommandBus|DomainEventBus $bus): void
     {
-        $this->handle($command, $commandBus);
-        $this->logAlarm($command);
+        $this->handle($message, $bus);
+        $this->logAlarm($message);
     }
 
-    private function logAlarm(Command $command): void
+    private function logAlarm(Command|DomainEvent $command): void
     {
         if (!$command instanceof PlayAlarmCommand) {
             return;
