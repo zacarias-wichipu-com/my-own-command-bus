@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Middleware;
 
 use App\Application\Command;
-use App\Domain\Bus\Middleware\Middleware;
 use App\Domain\Event\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\DomainEventBus;
@@ -17,7 +16,7 @@ use function fopen;
 use function fwrite;
 use function sprintf;
 
-final class CommandLoggerMiddleware extends Middleware
+final class CommandLoggerMiddleware extends AbstractMiddleware
 {
     public function __invoke(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
     {

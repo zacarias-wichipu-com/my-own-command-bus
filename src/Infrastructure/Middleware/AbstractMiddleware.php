@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Bus\Middleware;
+namespace App\Infrastructure\Middleware;
 
 use App\Application\Command;
 use App\Domain\Event\DomainEvent;
@@ -11,10 +11,10 @@ use App\Infrastructure\Bus\DomainEventBus;
 
 use function is_null;
 
-abstract class Middleware
+abstract class AbstractMiddleware implements Middleware
 {
     public function __construct(
-        private ?Middleware $nexMiddleware = null
+        private readonly ?Middleware $nextMiddleware = null
     ) {
     }
 
@@ -22,10 +22,10 @@ abstract class Middleware
 
     public function handle(Command|DomainEvent $command, CommandBus|DomainEventBus $commandBus): void
     {
-        if (is_null($this->nexMiddleware)) {
+        if (is_null($this->nextMiddleware)) {
             $commandBus->handle($command);
         } else {
-            ($this->nexMiddleware)($command, $commandBus);
+            ($this->nextMiddleware)($command, $commandBus);
         }
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Bus;
 
 use App\Application\Command;
-use App\Domain\Bus\Middleware\Middleware;
+use App\Infrastructure\Middleware\Middleware;
 
 
 final readonly class CommandBus

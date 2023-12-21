@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Bus;
 
 use App\Application\DomainEventHandler;
-use App\Domain\Bus\Middleware\Middleware;
 use App\Domain\Event\DomainEvent;
+use App\Infrastructure\Middleware\Middleware;
 
 
 final readonly class DomainEventBus

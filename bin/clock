@@ -44,7 +44,7 @@ $commandHandlerDriver->registerCommands(
 $commandBus = new CommandBus(
     commandHandlerDriver: $commandHandlerDriver,
     middleware: new CommandLoggerMiddleware(
-        nexMiddleware: new AlarmLogMiddleware()
+        nextMiddleware: new AlarmLogMiddleware()
     )
 );
 $runClock = new RunClock(
