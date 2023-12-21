@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Middleware;
 
-use App\Application\Command;
-use App\Domain\Event\DomainEvent;
+use App\Domain\Message\Command;
+use App\Domain\Message\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 use App\Infrastructure\Bus\DomainEventBus;
 use DateTimeImmutable;

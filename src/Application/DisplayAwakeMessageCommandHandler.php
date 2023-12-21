@@ -6,6 +6,7 @@ namespace App\Application;
 
 use App\Domain\Component\ClockDisplay;
 use App\Domain\Internationalisation\DisplayMessage;
+use App\Domain\Message\CommandHandler;
 
 use function str_pad;
 

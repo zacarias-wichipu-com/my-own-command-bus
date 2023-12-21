@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Bus;
 
-use App\Application\Command;
-use App\Application\CommandHandler;
+use App\Domain\Message\Command;
+use App\Domain\Message\CommandHandler;
 
 final class CommandHandlerDriver
 {

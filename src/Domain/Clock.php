@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use App\Domain\Event\AwakeHourReachedDomainEvent;
-use App\Domain\Event\DomainEvent;
 use App\Domain\Event\DotHourReachedDomainEvent;
 use App\Domain\Event\SleepHourReachedDomainEvent;
+use App\Domain\Message\DomainEvent;
 
 final class Clock
 {

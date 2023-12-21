@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\Domain\Component\ClockDisplay;
+use App\Domain\Message\CommandHandler;
 
 use function str_pad;
 

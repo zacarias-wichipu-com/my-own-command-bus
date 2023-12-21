@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Bus;
 
-use App\Application\DomainEventHandler;
-use App\Domain\Event\DomainEvent;
+use App\Domain\Message\DomainEvent;
+use App\Domain\Message\DomainEventHandler;
 
 final class DomainEventHandlerDriver
 {
     /**
-     * @var array<string, DomainEventHandler>
+     * @var array<string, \App\Domain\Message\DomainEventHandler>
      */
     private array $listeners = [];
 

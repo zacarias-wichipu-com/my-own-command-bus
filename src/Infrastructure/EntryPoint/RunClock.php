@@ -10,7 +10,7 @@ use App\Application\DisplayTimeCommand;
 use App\Application\PlayAlarmCommand;
 use App\Application\PlayBeepCommand;
 use App\Domain\Clock;
-use App\Domain\Event\DomainEvent;
+use App\Domain\Message\DomainEvent;
 use App\Infrastructure\Bus\CommandBus;
 
 final readonly class RunClock
