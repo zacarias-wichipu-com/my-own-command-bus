@@ -16,6 +16,8 @@ use App\Application\PlayBeepCommand;
 use App\Application\PlayBeepCommandHandler;
 use App\Application\PlayBeepWhenDotHourHasReached;
 use App\Application\ShowDisplayTimeWhenDotHourHasReached;
+use App\Application\TickCommand;
+use App\Application\TickCommandHandler;
 use App\Domain\Event\AwakeHourReachedDomainEvent;
 use App\Domain\Event\DotHourReachedDomainEvent;
 use App\Infrastructure\Bus\CommandBus;
@@ -76,8 +78,12 @@ $eventBus = new DomainEventBus(
     )
 );
 // Run clock
+$commandHandlerDriver->registerCommands(
+    commandFqn: TickCommand::class,
+    commandHandler: new TickCommandHandler($eventBus)
+);
 $runClock = new RunClock(
-    bus: $eventBus,
+    bus: $commandBus,
     awakeAt: 7,
     sleepAt: 22
 );
